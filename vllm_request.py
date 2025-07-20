@@ -204,8 +204,8 @@ def main():
 
 
 #------------------------read 2000 longest data and inference with vllm and write in new file
-    # longest_df = pd.read_csv("top_2000_longest_records.csv")
-    longest_df = pd.read_csv("Anonymization\sample_output.csv")
+    longest_df = pd.read_csv("top_2000_longest_records.csv")
+    # longest_df = pd.read_csv("Anonymization\sample_output.csv")
 
 
     llm = Llm()
