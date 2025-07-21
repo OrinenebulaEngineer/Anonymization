@@ -204,7 +204,7 @@ def main():
 
 
 #------------------------read 2000 longest data and inference with vllm and write in new file
-    longest_df = pd.read_csv("top_2000_longest_records.csv")
+    longest_df = pd.read_csv("Anonymization\\cleaned_split_top_2000_longest_records.csv")
     # longest_df = pd.read_csv("Anonymization\sample_output.csv")
 
 
@@ -213,7 +213,8 @@ def main():
     ne_table_list = []
     for _,row in tqdm(longest_df.iterrows(), total=longest_df.shape[0], desc= "Processing Rows"):
         id = row["id"]
-        text = row["text"]
+        # text = row["clean_text"]
+        text = longest_df["clean_text"][3]
 
         response = llm.vllm_inference(user_message=text, system_message=system_message)
         content = response['choices'][0]['message']['content']
