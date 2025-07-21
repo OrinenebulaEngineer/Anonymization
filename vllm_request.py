@@ -204,14 +204,16 @@ def main():
 
 
 #------------------------read 2000 longest data and inference with vllm and write in new file
-    longest_df = pd.read_csv("Anonymization\\cleaned_split_top_2000_longest_records.csv")
+    longest_df = pd.read_csv("cleaned_split_top_2000_longest_records.csv")
     # longest_df = pd.read_csv("Anonymization\sample_output.csv")
 
 
     llm = Llm()
     loop_start_time = time.time()
     ne_table_list = []
-    for _,row in tqdm(longest_df.iterrows(), total=longest_df.shape[0], desc= "Processing Rows"):
+    # for _,row in tqdm(longest_df.head(10).iterrows(), total=longest_df.shape[0], desc= "Processing Rows"):
+    for _, row in tqdm(longest_df.head(5).iterrows(), total=5, desc="Processing Rows"):
+
         id = row["id"]
         # text = row["clean_text"]
         text = longest_df["clean_text"][3]
