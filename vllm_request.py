@@ -210,7 +210,7 @@ def main():
     llm = Llm()
     loop_start_time = time.time()
     ne_table_list = []
-    for _,row in tqdm(longest_df.head.iterrows(), total=longest_df.shape[0], desc= "Processing Rows"):
+    for _,row in tqdm(longest_df.iterrows(), total=longest_df.shape[0], desc= "Processing Rows"):
     # for _, row in tqdm(longest_df.head(5).iterrows(), total=5, desc="Processing Rows"):
 
         id = row["id"]
