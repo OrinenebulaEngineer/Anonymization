@@ -216,27 +216,33 @@ def main():
         id = row["id"]
         text = row["clean_text"]
         # text = longest_df["clean_text"][3]
-
-        response = llm.vllm_inference(user_message=text, system_message=system_message)
-        content = response['choices'][0]['message']['content']
-        clean_text = llm.clean_text(content)
-        print(clean_text)
-    
-
-        row_output = json_response_to_dataframe(clean_text)
-
-        df = pd.DataFrame(row_output)
-        df["id"] = id
-        ne_table_list.append(df)
-
-        row_response_df = pd.DataFrame([[id, clean_text]], columns=["id", "response_text"])
+        try:
+                
+            response = llm.vllm_inference(user_message=text, system_message=system_message)
+            if response is None:
+                print(f"Skipping ID {id} due to inference error.")
+                continue
+            content = response['choices'][0]['message']['content']
+            clean_text = llm.clean_text(content)
+            print(clean_text)
         
-        if os.path.exists("response_log.csv"):
-            row_response_df.to_csv("response_log.csv", mode='a', header=False, index=False , encoding='utf-8-sig')
-        else:
-            row_response_df.to_csv("response_log.csv", mode='w', header=True, index=False , encoding='utf-8-sig')
 
+            row_output = json_response_to_dataframe(clean_text)
 
+            df = pd.DataFrame(row_output)
+            df["id"] = id
+            ne_table_list.append(df)
+
+            row_response_df = pd.DataFrame([[id, clean_text]], columns=["id", "response_text"])
+            
+            if os.path.exists("response_log.csv"):
+                row_response_df.to_csv("response_log.csv", mode='a', header=False, index=False , encoding='utf-8-sig')
+            else:
+                row_response_df.to_csv("response_log.csv", mode='w', header=True, index=False , encoding='utf-8-sig')
+
+        except Exception as e:
+            print(f"Unexpected error with ID {id_val}: {e}")
+            continue
     te = pd.concat(ne_table_list, ignore_index=True)
     te.to_csv("new_json_response_gemma.csv", index=False, encoding='utf-8-sig')
     loop_end_time = time.time()
