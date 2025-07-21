@@ -26,7 +26,7 @@ class Llm:
             "model": model,
             "messages": prompt,  
             "max_tokens": 1000,
-            "temperature": 0.5,      
+            "temperature": 0.3,      
             "top_p": 1,   
         }
 
