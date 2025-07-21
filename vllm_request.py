@@ -25,8 +25,8 @@ class Llm:
         payload = {
             "model": model,
             "messages": prompt,  
-            "max_tokens": 1000,
-            "temperature": 0.3,      
+            # "max_tokens": 1000,
+            "temperature": 0.4,      
             "top_p": 1,   
         }
 
