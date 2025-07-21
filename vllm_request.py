@@ -26,7 +26,7 @@ class Llm:
             "model": model,
             "messages": prompt,  
             "max_tokens": 1000,
-            "temperature": 0.4,      
+            "temperature": 0.5,      
             "top_p": 1,   
         }
 
@@ -157,7 +157,6 @@ def main():
 ابتدا موجودیت های نامدار را به همراه مقادیرشان شناسایی کن. موجودیت های نامدار شامل: افراد،اسامی و فامیل‌‌های خاص، مکان ها، سازمان ها، تاریخ ها و مقادیر عددی است. 
 در مرحله دوم اگرمقدار موجودیت موجود بود "بلی" بگذار اگر موجود نبود "خیر" بگذار.
  اگر موجودیتی دو مقدار دارد حتما دو مقدار را جداگانه بیاور،
-  اگر موجودیتی شامل اسامی اختصاری مثلا یک حرف با نفطه بود "خیر" بگذار 
  اگر موجودیتی شامل اسامی اختصاری مانند آقای ع.ا. یا آقای ا.ف. فرزند ج. است، را "خیر" بگذار.
 اگر نام یا نام خانوادگی کامل بعد از موجودیت آمده بود "بله" بگذار.
 اگر به جای مقدار موجودیت فقط کاراکتر * بود و بعد از آن هم مقدار موجودیت خاصی ذکر نشده بود "خیر" بگذار .
@@ -211,7 +210,7 @@ def main():
     llm = Llm()
     loop_start_time = time.time()
     ne_table_list = []
-    for _,row in tqdm(longest_df.head(10).iterrows(), total=longest_df.shape[0], desc= "Processing Rows"):
+    for _,row in tqdm(longest_df.head.iterrows(), total=longest_df.shape[0], desc= "Processing Rows"):
     # for _, row in tqdm(longest_df.head(5).iterrows(), total=5, desc="Processing Rows"):
 
         id = row["id"]
