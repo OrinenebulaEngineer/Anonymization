@@ -214,7 +214,7 @@ def main():
     # for _, row in tqdm(longest_df.head(5).iterrows(), total=5, desc="Processing Rows"):
 
         id = row["id"]
-        text = row["clean_tgit ext"]
+        text = row["clean_text"]
         # text = longest_df["clean_text"][3]
 
         response = llm.vllm_inference(user_message=text, system_message=system_message)
